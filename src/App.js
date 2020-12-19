@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
-
+import ContactList from './component/ContactList';
+import ReUseContact from './component/ReUseContact';
 function App() {
+  let [Action,ToDoAction]=useState({
+    currentPage:""
+  })
+
+  useEffect(()=>{},[Action])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <h4>Contact Details</h4>
+      <div className="row">
+      <div className="col-sm-3 col-md-6">
+      <ContactList forwardPage={ToDoAction} pageAction={Action}/>
+      </div>
+      <div className="col-sm-3 col-md-6"></div>
+      {Action.currentPage?<ReUseContact forwardPage={ToDoAction} pageAction={Action}/> :null}
+      </div>
     </div>
   );
 }
