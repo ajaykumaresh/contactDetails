@@ -1,38 +1,159 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  display: flex;
   min-height: 100vh;
+}
+
+.scrolltop {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 56px;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1;
+  font-weight: bolder;
+}
+
+aside {
+  width: 50px;
+  background: linear-gradient(180deg, #F67354 20%,  #480048 100%);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  color: #fff;
+  font-size: 24px;
+}
+
+aside i {
+  padding: 12px;
+  cursor: pointer;
+  border-left: 3px solid #fff;
+  position: sticky;
+  top: 0;
+}
+
+main {
+  flex: 1 1 auto;
+}
+
+.searchbar {
+  display: flex;
+  max-width: 450px;
+  position: sticky;
+  top: 7px;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.searchbar button {
+  flex: 0 0 auto;
+  background: linear-gradient(90deg, #F67354 20%,  #480048 100%) !important;
+  border: 0;
+  padding: 6px 11px 6px 14px;
+  align-self: center;
+}
+
+.searchbar button i {
+  margin-right: 4px;
+}
+
+.searchbar input {
+  background-color: rgba(0, 0, 0, .050);
+  border: 0;
+  margin-right: 15px;
+  border-radius: 20px;
+  padding: 20px;
+  flex: 1 1 auto;
+  border: 0;
+  outline: 0;
+}
+
+.list-card {
+  border: 0;
+  flex-direction: row;
+  cursor: pointer;
+}
+
+.list-card .profile-dp {
+  height: 50px;
+  width: 50px;
+  border-radius: 100%;
+  background: linear-gradient(90deg, #F67354 20%,  #480048 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.btn {
+  background: linear-gradient(90deg, #F67354 20%,  #480048 100%) !important;
+  border: 0;
+}
+
+.list-card:hover {
+  background-color: rgba(0, 0, 0, .050);
+}
+
+.list-card:hover .edit-btn {
+  display: block;
+}
+
+.edit-btn {
+  padding: 5px 8px 6px 11px;
+  font-size: 14px;
+  display: none;
+}
+
+.text-xs {
+  font-size: 14px;
+}
+
+.detail-card {
+  background-color: rgba(0, 0, 0, .050);
+  border: 0;
+  position: sticky;
+  top: 70px;
+  margin-top: 64px;
+  align-items: center;
+}
+
+.detail-card .profile-dp {
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  background: linear-gradient(90deg, #F67354 20%,  #480048 100%);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  font-size: 40px;
+}
+
+.detail-card .contents {
+  width: 100%;
+}
+
+.no-msg {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 400px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+.no-msg i {
+  font-size: 30px;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media(max-width: 991px) {
+  .detail-card {
+    margin-top: 40px;
   }
 }

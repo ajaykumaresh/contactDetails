@@ -103,59 +103,58 @@ const ReUseContact= (props)=>{
         
     }
     return(
-        <div>
-        {props.pageAction.currentPage==="add" || props.pageAction.currentPage==="edit"?
-                <div className="card p-3 my-3" >
-                <div className="d-flex" >
-                    <div className="mr-auto  px-3">
-                        <label className="mb-0 font-weight-bold">Name :</label>
-                        <input className="form-control"
-                    type="text"
-                    name="name"
-                    onChange={(e)=>handleChange(e)}
-                    value={currentContact.name}
-                    />
-                    {currentContact.errors.name?<p className="text-danger">{currentContact.errors.name}</p>:null}
-                        <label className="mb-0 font-weight-bold">email :</label>
-                        <input className="form-control"
-                    type="text"
-                    name="email"
-                    onChange={(e)=>handleChange(e)}
-                    value={currentContact.email}
-                    />
-                     {currentContact.errors.email?<p className="text-danger">{currentContact.errors.email}</p>:null}
-                        <label className="mb-0 font-weight-bold">Phone Number :</label>
-                        <input className="form-control"
-                    type="text"
-                    name="phonenumber"
-                    onChange={(e)=>handleChange(e)}
-                    value={currentContact.phonenumber}
-                    />
-                     {currentContact.errors.phonenumber?<p className="text-danger">{currentContact.errors.phonenumber}</p>:null}
+        <React.Fragment>
+            {props.pageAction.currentPage === "add" || props.pageAction.currentPage === "edit" ?
+                <div className="card p-4 detail-card" >
+                    <div className="w-100" >
+                        <div className="mr-auto  px-3">
+                            <label className="mb-1 text-capitalize font-weight-bold">Name</label>
+                            <input className="form-control mb-1"
+                                type="text"
+                                name="name"
+                                onChange={(e) => handleChange(e)}
+                                value={currentContact.name}
+                            />
+                            {currentContact.errors.name ? <p className="text-danger">{currentContact.errors.name}</p> : null}
+                            <label className="mb-1 text-capitalize font-weight-bold">email</label>
+                            <input className="form-control mb-1"
+                                type="text"
+                                name="email"
+                                onChange={(e) => handleChange(e)}
+                                value={currentContact.email}
+                            />
+                            {currentContact.errors.email ? <p className="text-danger">{currentContact.errors.email}</p> : null}
+                            <label className="mb-1 text-capitalize font-weight-bold">Phone Number</label>
+                            <input className="form-control mb-2"
+                                type="text"
+                                name="phonenumber"
+                                onChange={(e) => handleChange(e)}
+                                value={currentContact.phonenumber}
+                            />
+                            {currentContact.errors.phonenumber ? <p className="text-danger">{currentContact.errors.phonenumber}</p> : null}
+                        </div>
                     </div>
+                    {props.pageAction.currentPage === "edit" ?
+                        <button className="btn btn-primary ml-3 align-self-center" onClick={editContact} > Edit Contact </button>
+                        :
+                        <button className="btn btn-primary ml-3 align-self-center" onClick={AddContact} > Add Contact </button>}
                 </div>
-                {props.pageAction.currentPage==="edit"?
-                 <button className="btn btn-primary ml-3 align-self-center" onClick={editContact} > Edit Contact </button>
-                :
-                <button className="btn btn-primary ml-3 align-self-center" onClick={AddContact} > Add Contact </button>}
-            </div>
-        :props.pageAction.currentPage==="view" && ToDisplay.DisplayData ?
-        <div className="card p-3 my-3" >
-                <div className="d-flex" >
-                    {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
-                    <div className="mr-auto  px-3">
-                        <label className="mb-0 font-weight-bold">Name :</label>
-                        <div className="mb-2">{ToDisplay.DisplayData[0].name}</div>
-                        <label className="mb-0 font-weight-bold">email :</label>
-                        <div>{ToDisplay.DisplayData[0].email}</div>
-                        <label className="mb-0 font-weight-bold">Phone Number :</label>
-                        <div>{ToDisplay.DisplayData[0].phoneNumber}</div>
+                : props.pageAction.currentPage === "view" && ToDisplay.DisplayData ?
+                    <div className="card p-4 detail-card" >
+                        {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
+                        <div className="profile-dp"> {ToDisplay.DisplayData[0].name[0]}</div>
+                        <div className="contents">
+                            <label className="mb-0 font-weight-bold">Name</label>
+                            <div className="mb-4">{ToDisplay.DisplayData[0].name}</div>
+                            <label className="mb-0 font-weight-bold">email</label>
+                            <div className="mb-4">{ToDisplay.DisplayData[0].email}</div>
+                            <label className="mb-0 font-weight-bold">Phone Number</label>
+                            <div>{ToDisplay.DisplayData[0].phonenumber}</div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        :null
-    }
-        </div>
+                    : null
+            }
+        </React.Fragment>
     )
 }
 

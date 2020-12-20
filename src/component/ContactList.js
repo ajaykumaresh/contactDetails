@@ -46,31 +46,31 @@ const Allcontact= (props)=>{
 
     return(
         <div>
-        <input
-            className="form-control form-control-lg"
-            type="text" 
-            name="inputValue"
-            placeholder="Enter song name to Search.."
-            onChange={(e) => handleChange(e)}
-            value={PageState.inputValue}
-        ></input>
-        <button className="btn btn-primary" onClick={addTo}>ADD</button>
-        {ProcessedData && ProcessedData.SelectedArray && ProcessedData.SelectedArray.length? ProcessedData.SelectedArray.map((Selecteditems,index) => {
-            return <div className="card p-3 my-3" key={Selecteditems.id}  >
-                <div className="d-flex" >
-                    {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
-                    <div className="mr-auto  px-3" onClick={()=>viewTo(Selecteditems.id)}>
-                        <label className="mb-0 font-weight-bold">Name :</label>
-                        <div className="mb-2">{Selecteditems.name}</div>
-                        <label className="mb-0 font-weight-bold">email :</label>
-                        <div>{Selecteditems.email}</div>
-                        <label className="mb-0 font-weight-bold">Phone Number :</label>
-                        <div>{Selecteditems.phonenumber}</div>
-                    </div>
-                     <button className="btn btn-primary ml-3 align-self-center" onClick={(e)=>EditTo(Selecteditems.id)} > Edit Contact </button>
+        <div className="searchbar mb-4">
+            <input
+                className="form-control"
+                type="text"
+                name="inputValue"
+                placeholder="Search Contacts"
+                onChange={(e) => handleChange(e)}
+                value={PageState.inputValue}
+            ></input>
+            <button className="btn btn-primary" onClick={addTo}><i className="fas fa-user-plus"/> Add</button>
+        </div>
+        {ProcessedData && ProcessedData.SelectedArray && ProcessedData.SelectedArray.length ? ProcessedData.SelectedArray.map((Selecteditems, index) => {
+            return <div className="list-card card py-3 px-4" key={Selecteditems.id}  >
+                {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
+                <div className="profile-dp">
+                 {Selecteditems.name[0]}
                 </div>
+                <div className="mr-auto  px-3" onClick={() => viewTo(Selecteditems.id)}>
+                    <div className="font-weight-bolder text-capitalize">{Selecteditems.name}</div>
+                    <div className="text-xs">{Selecteditems.email}</div>
+                    <div className="text-xs">{Selecteditems.phonenumber}</div>
+                </div>
+                <button className="btn btn-primary align-self-center edit-btn" onClick={(e) => EditTo(Selecteditems.id)} > <i className="fas fa-edit"/> </button>
             </div>
-        }) : <div className="card my-3 p-3 text-center font-weight-bold">{PageState.errordisplay} </div>}
+        }) : <div className="my-3 p-3 text-center font-weight-bold no-msg"><i className="fas fa-exclamation"></i> {PageState.errordisplay} </div>}
     </div>
     )
 }
