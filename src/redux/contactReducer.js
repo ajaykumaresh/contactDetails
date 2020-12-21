@@ -1,4 +1,4 @@
-import {GET_CONTACT,ADD_CONTACT,EDIT_CONTACT} from './contactType'
+import {GET_CONTACT,ADD_CONTACT,EDIT_CONTACT,DELETE_CONTACT} from './contactType'
 const InitialValue={
     loader:false,
     contacts:[]
@@ -30,6 +30,13 @@ const contactReducer= (state=InitialValue,action)=>{
                 contacts:action.payload,
                 loader:false, 
             }
+
+            case DELETE_CONTACT:
+              return{
+                ...state,
+                contacts:action.payload,
+                loader:false, 
+              }
           default :
           return state
       }  

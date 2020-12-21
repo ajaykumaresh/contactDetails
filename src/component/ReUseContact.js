@@ -34,7 +34,7 @@ const ReUseContact= (props)=>{
     const handleChange =(e)=>{
         TodoContact({
             ...currentContact,
-            [e.target.name]:e.target.value,
+            [e.target.name]:e.target.value.trim(),
             errors:{
                 ...currentContact.errors,
                 [e.target.name]:""
@@ -88,7 +88,7 @@ const ReUseContact= (props)=>{
         let isValid=validate();
         let {name,email,phonenumber}=currentContact
         if(isValid){
-            props.addcontactstore({name,email,phonenumber})
+            props.addcontactstore({name,email,phonenumber},props.responce)
             props.forwardPage({currentPage:""})
         }
     }
@@ -97,7 +97,7 @@ const ReUseContact= (props)=>{
         let isValid=validate()
         let {id,name,email,phonenumber}=currentContact
         if(isValid){
-            props.editcontactstore({id,name,email,phonenumber})
+            props.editcontactstore({id,name,email,phonenumber},props.responce)
             props.forwardPage({currentPage:""})
         }
         
@@ -126,7 +126,7 @@ const ReUseContact= (props)=>{
                             {currentContact.errors.email ? <p className="text-danger">{currentContact.errors.email}</p> : null}
                             <label className="mb-1 text-capitalize font-weight-bold">Phone Number</label>
                             <input className="form-control mb-2"
-                                type="text"
+                                type="number"
                                 name="phonenumber"
                                 onChange={(e) => handleChange(e)}
                                 value={currentContact.phonenumber}
@@ -142,7 +142,7 @@ const ReUseContact= (props)=>{
                 : props.pageAction.currentPage === "view" && ToDisplay.DisplayData ?
                     <div className="card p-4 detail-card" >
                         {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
-                        <div className="profile-dp"> {ToDisplay.DisplayData[0].name[0]}</div>
+                        <div className="profile-dp"> {(ToDisplay.DisplayData[0].name.match(/[a-zA-Z]/)||['NA']).pop()}</div>
                         <div className="contents">
                             <label className="mb-0 font-weight-bold">Name</label>
                             <div className="mb-4">{ToDisplay.DisplayData[0].name}</div>
@@ -165,8 +165,8 @@ const mapStateToProps =state=>{
 }
 const mapDispatchToProps =dispatch=>{
     return {
-         addcontactstore: (data) =>{dispatch(addContact(data))},
-         editcontactstore: (data) =>{dispatch(editContact(data))}
+         addcontactstore: (data,dbData) =>{dispatch(addContact(data,dbData))},
+         editcontactstore: (data,dbData) =>{dispatch(editContact(data,dbData))}
     }
 }
 

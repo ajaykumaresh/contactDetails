@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
-import {getContacts } from '../redux/contactAction';
+import {getContacts,deleteContact } from '../redux/contactAction';
 
 
 const Allcontact= (props)=>{
@@ -10,12 +10,12 @@ const Allcontact= (props)=>{
     const [ProcessedData,ActionToProsses]=useState()
     const [PageState,ActionToPageState]=useState({
         inputValue:"",
-        errordisplay:'Loading on your request...'
+        errordisplay:'No Contact Found'
     })
    
-   
+    useEffect(()=>props.getContact(),[])
     useEffect(()=>{
-        props.getContact()
+        
         if(props.responce){
         let processArray={...ProcessedData,DisplayArray:props.responce,SelectedArray:props.responce}
         ActionToProsses(processArray) 
@@ -29,9 +29,9 @@ const Allcontact= (props)=>{
         let modifiedObject={...PageState,[event.target.name]:event.target.value};
         let value=modifiedObject.inputValue
         ActionToPageState(modifiedObject)
-        let filteredArray=ProcessedData.DisplayArray.filter(dataToBe=>dataToBe.name.toLowerCase().startsWith(value.toLowerCase()));
+        let filteredArray=ProcessedData.DisplayArray.filter(dataToBe=>dataToBe.name.toLowerCase().includes(value.toLowerCase()));
         ActionToProsses({...ProcessedData,SelectedArray:filteredArray}) 
-        if(!filteredArray.length) ActionToPageState({...PageState,errordisplay:"No Contact Found",[event.target.name]:event.target.value})
+        if(filteredArray.length===0) ActionToPageState({...PageState,errordisplay:"No Contact Found",[event.target.name]:event.target.value})
      }
 
     const addTo =() =>{
@@ -42,6 +42,11 @@ const Allcontact= (props)=>{
     }
     const viewTo =(e) =>{
         props.forwardPage({...props.pageAction,currentPage:"view", selectedData:e})
+    }
+
+    const DeleteTo =(e) =>{
+        let resultDB=ProcessedData.DisplayArray.filter(i=> i.id !== e);
+        props.isDeleteContact(resultDB)
     }
 
     return(
@@ -60,15 +65,16 @@ const Allcontact= (props)=>{
         {ProcessedData && ProcessedData.SelectedArray && ProcessedData.SelectedArray.length ? ProcessedData.SelectedArray.map((Selecteditems, index) => {
             return <div className="list-card card py-3 px-4" key={Selecteditems.id}  >
                 {/* <img src={Selecteditems.thumbnailUrl} alt="thumbnail" className="card-image" /> */}
-                <div className="profile-dp">
-                 {Selecteditems.name[0]}
+                <div className="profile-dp px-4 ">
+                 {(Selecteditems.name.match(/[a-zA-Z]/)||['NA']).pop()}
                 </div>
-                <div className="mr-auto  px-3" onClick={() => viewTo(Selecteditems.id)}>
+                <div className="mr-auto w-75  px-3" onClick={() => viewTo(Selecteditems.id)}>
                     <div className="font-weight-bolder text-capitalize">{Selecteditems.name}</div>
                     <div className="text-xs">{Selecteditems.email}</div>
                     <div className="text-xs">{Selecteditems.phonenumber}</div>
                 </div>
-                <button className="btn btn-primary align-self-center edit-btn" onClick={(e) => EditTo(Selecteditems.id)} > <i className="fas fa-edit"/> </button>
+                <button className="btn btn-primary m-1 align-self-center edit-btn" onClick={(e) => EditTo(Selecteditems.id)} > <i className="fas fa-edit"/> </button>
+                <button className="btn btn-primary align-self-center edit-btn" onClick={(e) => DeleteTo(Selecteditems.id)} > <i className="fas fa-trash"/> </button>
             </div>
         }) : <div className="my-3 p-3 text-center font-weight-bold no-msg"><i className="fas fa-exclamation"></i> {PageState.errordisplay} </div>}
     </div>
@@ -86,7 +92,7 @@ const mapDispatchToProps =dispatch=>{
     return {
         
         getContact: () =>{dispatch(getContacts())},
-        
+        isDeleteContact: (id) => {dispatch(deleteContact(id))}
     }
 }
 
