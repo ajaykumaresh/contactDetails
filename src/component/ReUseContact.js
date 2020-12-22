@@ -19,7 +19,7 @@ const ReUseContact= (props)=>{
         if(props.pageAction.currentPage==="view"){
             console.log(props.pageAction)
            let display= props.responce.filter(el=>el.id===props.pageAction.selectedData)
-           
+           if(!display.length) props.forwardPage({currentPage:""})
            ToDoDisplay({DisplayData:display})
         }else if(props.pageAction.currentPage==="edit"){
             let display= props.responce.filter(el=>el.id===props.pageAction.selectedData)  
