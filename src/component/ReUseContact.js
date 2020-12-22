@@ -23,11 +23,16 @@ const ReUseContact= (props)=>{
            ToDoDisplay({DisplayData:display})
         }else if(props.pageAction.currentPage==="edit"){
             let display= props.responce.filter(el=>el.id===props.pageAction.selectedData)  
-            TodoContact({...currentContact,
-                name:display[0].name,
-                email:display[0].email,
-                phonenumber:display[0].phonenumber,
-                id:display[0].id})
+            console.log(display.length)
+            if(!display.length) props.forwardPage({currentPage:""})
+            else{
+                TodoContact({...currentContact,
+                    name:display[0].name,
+                    email:display[0].email,
+                    phonenumber:display[0].phonenumber,
+                    id:display[0].id})
+            }
+
         }
     },[props.pageAction.currentPage,props.pageAction.selectedData,props.responce])
 
