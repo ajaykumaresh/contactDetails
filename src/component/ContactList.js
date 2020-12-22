@@ -19,7 +19,7 @@ const Allcontact= (props)=>{
         if(props.responce){
         let processArray={...ProcessedData,DisplayArray:props.responce,SelectedArray:props.responce}
         ActionToProsses(processArray) 
-        console.log(ProcessedData)  
+       // console.log(ProcessedData)  
         }    
     },[props.responce.length,DisplayData])
 

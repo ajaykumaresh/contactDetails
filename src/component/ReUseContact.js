@@ -17,13 +17,13 @@ const ReUseContact= (props)=>{
     })
     useEffect(()=>{
         if(props.pageAction.currentPage==="view"){
-            console.log(props.pageAction)
+           // console.log(props.pageAction)
            let display= props.responce.filter(el=>el.id===props.pageAction.selectedData)
            if(!display.length) props.forwardPage({currentPage:""})
            ToDoDisplay({DisplayData:display})
         }else if(props.pageAction.currentPage==="edit"){
             let display= props.responce.filter(el=>el.id===props.pageAction.selectedData)  
-            console.log(display.length)
+           // console.log(display.length)
             if(!display.length) props.forwardPage({currentPage:""})
             else{
                 TodoContact({...currentContact,

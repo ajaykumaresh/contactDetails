@@ -57,7 +57,7 @@ export const editContactResponse = (responce) =>{
  }
 
  export const deleteContactResponse= (responce) =>{
-   console.log(responce)
+  // console.log(responce)
   return {
       type:DELETE_CONTACT,
       payload:responce 
